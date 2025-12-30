@@ -1,0 +1,6 @@
+@import "tailwindcss"; /* Although this is not required, it's useful to get Tailwind Intellisense */
+
+body {
+	height: fit-content;
+	min-height: unset;
+}

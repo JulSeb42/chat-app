@@ -1,0 +1,41 @@
+{
+	"name": "chat-app",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"serve": "cd server && pnpm serve",
+		"client": "cd client && pnpm dev",
+		"install": "cd server && pnpm install && cd ../client && pnpm install",
+		"dev": "concurrently --kill-others 'pnpm serve' 'pnpm client'",
+		"seed-users": "cd server && pnpm seed-users",
+		"plop": "cross-env NODE_OPTIONS='--import tsx' plop --plopfile=plop/plopfile.ts",
+		"plop:g": "pnpm plop generator",
+		"plop:c": "pnpm plop component",
+		"plop:sc": "pnpm plop single-component",
+		"plop:p": "pnpm plop page",
+		"plop:co": "pnpm plop context",
+		"plop:t": "pnpm plop type",
+		"plop:r": "pnpm plop route",
+		"plop:m": "pnpm plop model"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"dependencies": {
+		"@julseb-lib/utils": "^1.0.2",
+		"concurrently": "^9.2.1",
+		"dotenv": "^17.2.3"
+	},
+	"devDependencies": {
+		"@types/figlet": "^1.7.0",
+		"chalk": "^5.6.2",
+		"cross-env": "^10.1.0",
+		"figlet": "^1.9.4",
+		"plop": "^4.0.4",
+		"plop-pack-remove": "^1.1.0",
+		"tsx": "^4.21.0"
+	}
+}
