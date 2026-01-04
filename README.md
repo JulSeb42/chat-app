@@ -8,7 +8,7 @@ A full-stack real-time chat application with user authentication, encrypted mess
 - Encrypted messages stored in MongoDB
 - User authentication (signup, login, JWT)
 - User avatars and profile management
-- Chat creation (1:1 and group)
+- Chat creation
 - Responsive, modern UI (React + Tailwind CSS)
 - RESTful API (Express.js)
 - File/image uploads (Cloudinary)
