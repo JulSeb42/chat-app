@@ -1,28 +1,20 @@
-import { createFileRoute, Link, Navigate } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import { Text } from "@julseb-lib/react"
-import { Page, UserHeader } from "components"
-import { useAuth } from "context"
-import { emptyUser } from "utils"
+import { Page } from "components"
+import { EditAccountForm, DeleteAccount } from "./-forms"
 
 const MyAccount: FC = () => {
-	const { user } = useAuth()
-
-	if (user?.role === "admin") return <Navigate to="/admin" />
-
 	return (
-		<Page title="My Account" type="protected">
-			<UserHeader user={user ?? emptyUser} />
+		<Page title="My Account" type="protected" mainSize="form">
+			<Text tag="h1">Edit your account</Text>
 
-			{!user?.verified && (
-				<Text>
-					You are not verified yet, please click the link we sent you
-					by email.
-				</Text>
-			)}
+			<EditAccountForm />
 
 			<Text>
-				<Link to="/my-account/edit-account">Edit your account.</Link>
+				<Link to="/my-account/edit-password">Edit your password.</Link>
 			</Text>
+
+			<DeleteAccount />
 		</Page>
 	)
 }

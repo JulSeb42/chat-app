@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react"
-import { authService } from "api"
+import { authService, userService } from "api"
 import type { User } from "types"
 import type { IAuthContext } from "./type"
 
@@ -27,6 +27,19 @@ export const AuthProviderWrapper: FC<{ children: Children }> = ({
 		localStorage.removeItem("authToken")
 		setIsLoggedIn(false)
 		setUser(null)
+	}
+
+	const refreshUser = () => {
+		if (user?._id) {
+			userService
+				.getUser(user._id)
+				.then(res => {
+					setUser(res.data)
+				})
+				.catch(err => {
+					console.error("Failed to refresh user:", err)
+				})
+		}
 	}
 
 	const verifyStoredToken = () => {
@@ -70,6 +83,7 @@ export const AuthProviderWrapper: FC<{ children: Children }> = ({
 				setToken,
 				loginUser,
 				logoutUser,
+				refreshUser,
 				user,
 			}}
 		>

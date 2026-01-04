@@ -9,8 +9,15 @@ import {
 } from "@julseb-lib/utils"
 import { UserModel } from "models"
 import { isAuthenticated } from "middleware"
-import { jwtConfig, SALT_ROUNDS, TOKEN_SECRET, sendMail, SERVER_PATHS } from "utils"
-import { COMMON_TEXTS,  } from "data"
+import {
+	jwtConfig,
+	SALT_ROUNDS,
+	TOKEN_SECRET,
+	sendMail,
+	SERVER_PATHS,
+	decrypt,
+} from "utils"
+import { COMMON_TEXTS } from "data"
 import type {
 	SignupFormData,
 	LoginFormData,
@@ -92,6 +99,7 @@ router.post(PATHS.LOGIN, async (req, res, next) => {
 	}
 
 	return await UserModel.findOne({ email })
+		.populate("chats")
 		.then(foundUser => {
 			if (!foundUser) {
 				return res
@@ -118,11 +126,37 @@ router.post(PATHS.LOGIN, async (req, res, next) => {
 		.catch(err => next(err))
 })
 
-router.get(PATHS.LOGGED_IN, isAuthenticated, (req, res) => {
+router.get(PATHS.LOGGED_IN, isAuthenticated, async (req, res, next) => {
 	const payload = (req as any).payload
-	console.log(`req.payload: ${payload}`)
 
-	return res.status(200).json(payload)
+	try {
+		// Fetch the current user from database to get updated data including chats
+		const currentUser = await UserModel.findById(payload.user._id)
+			.populate("chats")
+			.populate({
+				path: "chats",
+				populate: { path: "users", model: "User" },
+			})
+			.exec()
+
+		currentUser?.chats
+			.sort((a, b) =>
+				new Date(a.updatedAt) > new Date(b.updatedAt) ? -1 : 0,
+			)
+			.forEach(chat =>
+				chat.messages.forEach(
+					message => (message.body = decrypt(message.body)),
+				),
+			)
+
+		if (!currentUser) {
+			return res.status(404).json({ message: "User not found" })
+		}
+
+		return res.status(200).json({ user: currentUser })
+	} catch (error) {
+		return next(error)
+	}
 })
 
 router.put(PATHS.VERIFY, async (req, res, next) => {

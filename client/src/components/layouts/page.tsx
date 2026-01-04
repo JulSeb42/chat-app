@@ -13,7 +13,6 @@ import { navLinks, SITE_DATA } from "data"
 import { useAuth, useModalOpen } from "context"
 import { ProtectedRoute } from "components/routes/protected-route"
 import { AnonRoute } from "components/routes/anon-route"
-import { AdminRoute } from "components/routes/admin-route"
 import type { ILibPageLayout } from "@julseb-lib/react/component-props"
 import type { LinkType } from "types"
 import type { LibMainSize } from "@julseb-lib/react/types"
@@ -36,11 +35,9 @@ const Page: FC<IPage> = ({
 	const Element =
 		type === "anon"
 			? AnonRoute
-			: type === "admin"
-				? AdminRoute
-				: type === "protected"
-					? ProtectedRoute
-					: Fragment
+			: type === "protected"
+				? ProtectedRoute
+				: Fragment
 
 	const pageTitle = `${title} | ${SITE_DATA.NAME}`
 
@@ -118,14 +115,12 @@ export default Page
 
 const Nav: FC = () => {
 	const { theme, switchTheme } = useLibTheme()
-	const { isLoggedIn, user, logoutUser } = useAuth()
+	const { isLoggedIn, logoutUser } = useAuth()
 
 	const links = navLinks.filter(link =>
-		isLoggedIn && user?.role === "user"
-			? link.type === "protected" || link.type === "none"
-			: isLoggedIn && user?.role === "admin"
-				? link.type === "admin" || link.type === "none"
-				: link.type === "anon" || link.type === "none",
+		isLoggedIn
+			? link.type === "protected" || link.type === "all"
+			: link.type === "anon" || link.type === "all",
 	)
 
 	return (

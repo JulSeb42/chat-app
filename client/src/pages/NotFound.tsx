@@ -4,7 +4,7 @@ import { Page } from "components"
 
 export const NotFoundPage = () => {
 	return (
-		<Page title="404" type="none">
+		<Page title="404" type="all">
 			<Text tag="h1">Page not found!</Text>
 
 			<Text>

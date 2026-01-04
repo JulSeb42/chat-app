@@ -130,7 +130,7 @@ const ImageUploader: FC<IImageUploader> = ({
 			</div>
 
 			<Modal isOpen={isOpen} setIsOpen={setIsOpen} hideCloseButton>
-				<Alert color="danger" className="max-w-[600px]">
+				<Alert color="danger" className="max-w-150">
 					<Text>Are you sure you want to delete this picture?</Text>
 
 					<Flexbox gap="xs">

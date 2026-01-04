@@ -2,7 +2,6 @@ import { useNavigate } from "@tanstack/react-router"
 import { Text, Button, Flexbox, toast } from "@julseb-lib/react"
 import { authService } from "api"
 import { useAuth } from "context"
-import type { UserRole } from "types"
 
 export const DemoLogin: FC<{ setIsLoading: DispatchState<boolean> }> = ({
 	setIsLoading,
@@ -11,7 +10,7 @@ export const DemoLogin: FC<{ setIsLoading: DispatchState<boolean> }> = ({
 
 	const { loginUser } = useAuth()
 
-	const handleLogin = (role: UserRole) => {
+	const handleLogin = (role: "user" | "admin") => {
 		authService
 			.login({
 				email:

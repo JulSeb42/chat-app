@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose"
-import { userRoles, type User } from "types"
+import type { User } from "types"
 
 const userSchema = new Schema<User>(
 	{
@@ -10,9 +10,9 @@ const userSchema = new Schema<User>(
 		verifyToken: String,
 		resetToken: String,
 		avatar: String,
-		role: { type: String, enum: Object.keys(userRoles), default: "user" },
+		chats: [{ type: Schema.Types.ObjectId, ref: "Chat" }],
 	},
-	{ timestamps: true }
+	{ timestamps: true },
 )
 
 export const UserModel = model<User>("User", userSchema)

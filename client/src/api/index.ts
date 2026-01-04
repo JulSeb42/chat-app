@@ -3,5 +3,5 @@ export * from "./http-common"
 export * from "./auth.service"
 export * from "./cloudinary.service"
 export * from "./user.service"
-export * from "./admin.service"
+export * from "./chat.service"
 /* Prepend export - DO NOT REMOVE */

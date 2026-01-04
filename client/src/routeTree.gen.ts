@@ -9,33 +9,33 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as NewChatRouteImport } from './routes/new-chat'
+import { Route as IdRouteImport } from './routes/$id'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as UsersIndexRouteImport } from './routes/users/index'
 import { Route as MyAccountIndexRouteImport } from './routes/my-account/index'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as UsersIdRouteImport } from './routes/users/$id'
-import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as MyAccountEditPasswordRouteImport } from './routes/my-account/edit-password'
 import { Route as authThankYouRouteImport } from './routes/(auth)/thank-you'
 import { Route as authSignupRouteImport } from './routes/(auth)/signup'
 import { Route as authResetPasswordRouteImport } from './routes/(auth)/reset-password'
 import { Route as authGoodbyeRouteImport } from './routes/(auth)/goodbye'
 import { Route as authForgotSentRouteImport } from './routes/(auth)/forgot-sent'
 import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
-import { Route as MyAccountEditAccountIndexRouteImport } from './routes/my-account/edit-account/index'
-import { Route as AdminEditAccountIndexRouteImport } from './routes/admin/edit-account/index'
 import { Route as authVerifyIndexRouteImport } from './routes/(auth)/verify/index'
 import { Route as authLoginIndexRouteImport } from './routes/(auth)/login/index'
-import { Route as MyAccountEditAccountEditPasswordRouteImport } from './routes/my-account/edit-account/edit-password'
-import { Route as AdminEditAccountEditPasswordRouteImport } from './routes/admin/edit-account/edit-password'
 
+const NewChatRoute = NewChatRouteImport.update({
+  id: '/new-chat',
+  path: '/new-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IdRoute = IdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UsersIndexRoute = UsersIndexRouteImport.update({
-  id: '/users/',
-  path: '/users/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MyAccountIndexRoute = MyAccountIndexRouteImport.update({
@@ -43,19 +43,9 @@ const MyAccountIndexRoute = MyAccountIndexRouteImport.update({
   path: '/my-account/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UsersIdRoute = UsersIdRouteImport.update({
-  id: '/users/$id',
-  path: '/users/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminUsersRoute = AdminUsersRouteImport.update({
-  id: '/admin/users',
-  path: '/admin/users',
+const MyAccountEditPasswordRoute = MyAccountEditPasswordRouteImport.update({
+  id: '/my-account/edit-password',
+  path: '/my-account/edit-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const authThankYouRoute = authThankYouRouteImport.update({
@@ -88,17 +78,6 @@ const authForgotPasswordRoute = authForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MyAccountEditAccountIndexRoute =
-  MyAccountEditAccountIndexRouteImport.update({
-    id: '/my-account/edit-account/',
-    path: '/my-account/edit-account/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AdminEditAccountIndexRoute = AdminEditAccountIndexRouteImport.update({
-  id: '/admin/edit-account/',
-  path: '/admin/edit-account/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const authVerifyIndexRoute = authVerifyIndexRouteImport.update({
   id: '/(auth)/verify/',
   path: '/verify/',
@@ -109,178 +88,138 @@ const authLoginIndexRoute = authLoginIndexRouteImport.update({
   path: '/login/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MyAccountEditAccountEditPasswordRoute =
-  MyAccountEditAccountEditPasswordRouteImport.update({
-    id: '/my-account/edit-account/edit-password',
-    path: '/my-account/edit-account/edit-password',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AdminEditAccountEditPasswordRoute =
-  AdminEditAccountEditPasswordRouteImport.update({
-    id: '/admin/edit-account/edit-password',
-    path: '/admin/edit-account/edit-password',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$id': typeof IdRoute
+  '/new-chat': typeof NewChatRoute
   '/forgot-password': typeof authForgotPasswordRoute
   '/forgot-sent': typeof authForgotSentRoute
   '/goodbye': typeof authGoodbyeRoute
   '/reset-password': typeof authResetPasswordRoute
   '/signup': typeof authSignupRoute
   '/thank-you': typeof authThankYouRoute
-  '/admin/users': typeof AdminUsersRoute
-  '/users/$id': typeof UsersIdRoute
-  '/admin': typeof AdminIndexRoute
+  '/my-account/edit-password': typeof MyAccountEditPasswordRoute
   '/my-account': typeof MyAccountIndexRoute
-  '/users': typeof UsersIndexRoute
-  '/admin/edit-account/edit-password': typeof AdminEditAccountEditPasswordRoute
-  '/my-account/edit-account/edit-password': typeof MyAccountEditAccountEditPasswordRoute
   '/login': typeof authLoginIndexRoute
   '/verify': typeof authVerifyIndexRoute
-  '/admin/edit-account': typeof AdminEditAccountIndexRoute
-  '/my-account/edit-account': typeof MyAccountEditAccountIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$id': typeof IdRoute
+  '/new-chat': typeof NewChatRoute
   '/forgot-password': typeof authForgotPasswordRoute
   '/forgot-sent': typeof authForgotSentRoute
   '/goodbye': typeof authGoodbyeRoute
   '/reset-password': typeof authResetPasswordRoute
   '/signup': typeof authSignupRoute
   '/thank-you': typeof authThankYouRoute
-  '/admin/users': typeof AdminUsersRoute
-  '/users/$id': typeof UsersIdRoute
-  '/admin': typeof AdminIndexRoute
+  '/my-account/edit-password': typeof MyAccountEditPasswordRoute
   '/my-account': typeof MyAccountIndexRoute
-  '/users': typeof UsersIndexRoute
-  '/admin/edit-account/edit-password': typeof AdminEditAccountEditPasswordRoute
-  '/my-account/edit-account/edit-password': typeof MyAccountEditAccountEditPasswordRoute
   '/login': typeof authLoginIndexRoute
   '/verify': typeof authVerifyIndexRoute
-  '/admin/edit-account': typeof AdminEditAccountIndexRoute
-  '/my-account/edit-account': typeof MyAccountEditAccountIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$id': typeof IdRoute
+  '/new-chat': typeof NewChatRoute
   '/(auth)/forgot-password': typeof authForgotPasswordRoute
   '/(auth)/forgot-sent': typeof authForgotSentRoute
   '/(auth)/goodbye': typeof authGoodbyeRoute
   '/(auth)/reset-password': typeof authResetPasswordRoute
   '/(auth)/signup': typeof authSignupRoute
   '/(auth)/thank-you': typeof authThankYouRoute
-  '/admin/users': typeof AdminUsersRoute
-  '/users/$id': typeof UsersIdRoute
-  '/admin/': typeof AdminIndexRoute
+  '/my-account/edit-password': typeof MyAccountEditPasswordRoute
   '/my-account/': typeof MyAccountIndexRoute
-  '/users/': typeof UsersIndexRoute
-  '/admin/edit-account/edit-password': typeof AdminEditAccountEditPasswordRoute
-  '/my-account/edit-account/edit-password': typeof MyAccountEditAccountEditPasswordRoute
   '/(auth)/login/': typeof authLoginIndexRoute
   '/(auth)/verify/': typeof authVerifyIndexRoute
-  '/admin/edit-account/': typeof AdminEditAccountIndexRoute
-  '/my-account/edit-account/': typeof MyAccountEditAccountIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$id'
+    | '/new-chat'
     | '/forgot-password'
     | '/forgot-sent'
     | '/goodbye'
     | '/reset-password'
     | '/signup'
     | '/thank-you'
-    | '/admin/users'
-    | '/users/$id'
-    | '/admin'
+    | '/my-account/edit-password'
     | '/my-account'
-    | '/users'
-    | '/admin/edit-account/edit-password'
-    | '/my-account/edit-account/edit-password'
     | '/login'
     | '/verify'
-    | '/admin/edit-account'
-    | '/my-account/edit-account'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$id'
+    | '/new-chat'
     | '/forgot-password'
     | '/forgot-sent'
     | '/goodbye'
     | '/reset-password'
     | '/signup'
     | '/thank-you'
-    | '/admin/users'
-    | '/users/$id'
-    | '/admin'
+    | '/my-account/edit-password'
     | '/my-account'
-    | '/users'
-    | '/admin/edit-account/edit-password'
-    | '/my-account/edit-account/edit-password'
     | '/login'
     | '/verify'
-    | '/admin/edit-account'
-    | '/my-account/edit-account'
   id:
     | '__root__'
     | '/'
+    | '/$id'
+    | '/new-chat'
     | '/(auth)/forgot-password'
     | '/(auth)/forgot-sent'
     | '/(auth)/goodbye'
     | '/(auth)/reset-password'
     | '/(auth)/signup'
     | '/(auth)/thank-you'
-    | '/admin/users'
-    | '/users/$id'
-    | '/admin/'
+    | '/my-account/edit-password'
     | '/my-account/'
-    | '/users/'
-    | '/admin/edit-account/edit-password'
-    | '/my-account/edit-account/edit-password'
     | '/(auth)/login/'
     | '/(auth)/verify/'
-    | '/admin/edit-account/'
-    | '/my-account/edit-account/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  IdRoute: typeof IdRoute
+  NewChatRoute: typeof NewChatRoute
   authForgotPasswordRoute: typeof authForgotPasswordRoute
   authForgotSentRoute: typeof authForgotSentRoute
   authGoodbyeRoute: typeof authGoodbyeRoute
   authResetPasswordRoute: typeof authResetPasswordRoute
   authSignupRoute: typeof authSignupRoute
   authThankYouRoute: typeof authThankYouRoute
-  AdminUsersRoute: typeof AdminUsersRoute
-  UsersIdRoute: typeof UsersIdRoute
-  AdminIndexRoute: typeof AdminIndexRoute
+  MyAccountEditPasswordRoute: typeof MyAccountEditPasswordRoute
   MyAccountIndexRoute: typeof MyAccountIndexRoute
-  UsersIndexRoute: typeof UsersIndexRoute
-  AdminEditAccountEditPasswordRoute: typeof AdminEditAccountEditPasswordRoute
-  MyAccountEditAccountEditPasswordRoute: typeof MyAccountEditAccountEditPasswordRoute
   authLoginIndexRoute: typeof authLoginIndexRoute
   authVerifyIndexRoute: typeof authVerifyIndexRoute
-  AdminEditAccountIndexRoute: typeof AdminEditAccountIndexRoute
-  MyAccountEditAccountIndexRoute: typeof MyAccountEditAccountIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/new-chat': {
+      id: '/new-chat'
+      path: '/new-chat'
+      fullPath: '/new-chat'
+      preLoaderRoute: typeof NewChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$id': {
+      id: '/$id'
+      path: '/$id'
+      fullPath: '/$id'
+      preLoaderRoute: typeof IdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/users/': {
-      id: '/users/'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof UsersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/my-account/': {
@@ -290,25 +229,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyAccountIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/users/$id': {
-      id: '/users/$id'
-      path: '/users/$id'
-      fullPath: '/users/$id'
-      preLoaderRoute: typeof UsersIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/users': {
-      id: '/admin/users'
-      path: '/admin/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminUsersRouteImport
+    '/my-account/edit-password': {
+      id: '/my-account/edit-password'
+      path: '/my-account/edit-password'
+      fullPath: '/my-account/edit-password'
+      preLoaderRoute: typeof MyAccountEditPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(auth)/thank-you': {
@@ -353,20 +278,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/my-account/edit-account/': {
-      id: '/my-account/edit-account/'
-      path: '/my-account/edit-account'
-      fullPath: '/my-account/edit-account'
-      preLoaderRoute: typeof MyAccountEditAccountIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/edit-account/': {
-      id: '/admin/edit-account/'
-      path: '/admin/edit-account'
-      fullPath: '/admin/edit-account'
-      preLoaderRoute: typeof AdminEditAccountIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/(auth)/verify/': {
       id: '/(auth)/verify/'
       path: '/verify'
@@ -381,42 +292,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLoginIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/my-account/edit-account/edit-password': {
-      id: '/my-account/edit-account/edit-password'
-      path: '/my-account/edit-account/edit-password'
-      fullPath: '/my-account/edit-account/edit-password'
-      preLoaderRoute: typeof MyAccountEditAccountEditPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/edit-account/edit-password': {
-      id: '/admin/edit-account/edit-password'
-      path: '/admin/edit-account/edit-password'
-      fullPath: '/admin/edit-account/edit-password'
-      preLoaderRoute: typeof AdminEditAccountEditPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  IdRoute: IdRoute,
+  NewChatRoute: NewChatRoute,
   authForgotPasswordRoute: authForgotPasswordRoute,
   authForgotSentRoute: authForgotSentRoute,
   authGoodbyeRoute: authGoodbyeRoute,
   authResetPasswordRoute: authResetPasswordRoute,
   authSignupRoute: authSignupRoute,
   authThankYouRoute: authThankYouRoute,
-  AdminUsersRoute: AdminUsersRoute,
-  UsersIdRoute: UsersIdRoute,
-  AdminIndexRoute: AdminIndexRoute,
+  MyAccountEditPasswordRoute: MyAccountEditPasswordRoute,
   MyAccountIndexRoute: MyAccountIndexRoute,
-  UsersIndexRoute: UsersIndexRoute,
-  AdminEditAccountEditPasswordRoute: AdminEditAccountEditPasswordRoute,
-  MyAccountEditAccountEditPasswordRoute: MyAccountEditAccountEditPasswordRoute,
   authLoginIndexRoute: authLoginIndexRoute,
   authVerifyIndexRoute: authVerifyIndexRoute,
-  AdminEditAccountIndexRoute: AdminEditAccountIndexRoute,
-  MyAccountEditAccountIndexRoute: MyAccountEditAccountIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

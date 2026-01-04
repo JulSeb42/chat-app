@@ -3,7 +3,13 @@ import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import { passwordRegex } from "@julseb-lib/utils"
 import { UserModel } from "models"
-import { SALT_ROUNDS, TOKEN_SECRET, jwtConfig, SERVER_PATHS } from "utils"
+import {
+	SALT_ROUNDS,
+	TOKEN_SECRET,
+	jwtConfig,
+	SERVER_PATHS,
+	decrypt,
+} from "utils"
 import { COMMON_TEXTS } from "data"
 import type { EditAccountFormData, EditPasswordFormData } from "types"
 
@@ -36,7 +42,7 @@ router.get(PATHS.ALL_USERS, async (req, res, next) => {
 		}
 
 		const [users, total] = await Promise.all([
-			UserModel.find(query).skip(skip).limit(limit),
+			UserModel.find(query).skip(skip).limit(limit).populate("chats"),
 			UserModel.countDocuments(query),
 		])
 
@@ -53,13 +59,49 @@ router.get(PATHS.ALL_USERS, async (req, res, next) => {
 	}
 
 	return await UserModel.find()
+		.populate("chats")
+		.populate({
+			path: "chats",
+			populate: { path: "users", model: "User" },
+		})
 		.then(usersFromDb => res.status(200).json(usersFromDb))
 		.catch(err => next(err))
 })
 
 router.get(PATHS.GET_USER(), async (req, res, next) => {
 	return await UserModel.findById(req.params.id)
-		.then(userFromDb => res.status(200).json(userFromDb))
+		.populate({
+			path: "chats",
+			populate: {
+				path: "messages",
+				select: "body sender readBy createdAt updatedAt",
+			},
+		})
+		.populate({
+			path: "chats",
+			populate: { path: "users", model: "User" },
+		})
+		.then(userFromDb => {
+			if (!userFromDb) {
+				return res.status(400).json({
+					message: COMMON_TEXTS.ERRORS.USER_NOT_EXIST,
+				})
+			}
+
+			const user = userFromDb.toObject()
+			if (user.chats && Array.isArray(user.chats)) {
+				user.chats
+					.sort((a, b) =>
+						new Date(a.updatedAt) > new Date(b.updatedAt) ? -1 : 0,
+					)
+					.forEach(chat => {
+						chat.messages.forEach(
+							message => (message.body = decrypt(message.body)),
+						)
+					})
+			}
+			return res.status(200).json(user)
+		})
 		.catch(err => {
 			next(err)
 			return res.status(400).json({

@@ -22,26 +22,18 @@ export default (plop: NodePlopAPI) => {
 				type: "list",
 				name: "type",
 				message: "What type of page is it?",
-				choices: ["none", "protected", "anon", "admin"],
+				choices: ["none", "protected", "anon"],
 				default: "none",
 			},
 		],
 		actions: data => {
 			const actions: Array<ActionType> = ["Creating your new page"]
 
-			if (data?.type === "admin") {
-				actions.push({
-					type: "add",
-					path: `${CLIENT_PATH}/routes/admin/{{>kebabName}}.tsx`,
-					templateFile: `${TEMPLATES_PATH}/admin-page.hbs`,
-				})
-			} else {
-				actions.push({
-					type: "add",
-					path: `${CLIENT_PATH}/routes/{{>kebabName}}.tsx`,
-					templateFile: `${TEMPLATES_PATH}/page.hbs`,
-				})
-			}
+			actions.push({
+				type: "add",
+				path: `${CLIENT_PATH}/routes/{{>kebabName}}.tsx`,
+				templateFile: `${TEMPLATES_PATH}/page.hbs`,
+			})
 
 			return actions
 		},

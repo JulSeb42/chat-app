@@ -10,7 +10,7 @@ const generateRoute = (route: Exclude<PATHS, "ROOT">, id?: string) =>
 
 class UserService {
 	allUsers = async (
-		page: number,
+		page?: number,
 		limit = 20,
 		search?: string,
 		role?: string,
@@ -22,17 +22,21 @@ class UserService {
 		page: number
 		limit: number
 	}> => {
-		let query = `?page=${page}&limit=${limit}&paginated=true`
+		if (page) {
+			let query = `?page=${page}&limit=${limit}&paginated=true`
 
-		if (search && search.trim() !== "") {
-			query += `&search=${encodeURIComponent(search.trim())}`
+			if (search && search.trim() !== "") {
+				query += `&search=${encodeURIComponent(search.trim())}`
+			}
+
+			if (role && role !== "none") {
+				query += `&role=${encodeURIComponent(role)}`
+			}
+
+			return await http.get(generateRoute("ALL_USERS") + query)
 		}
 
-		if (role && role !== "none") {
-			query += `&role=${encodeURIComponent(role)}`
-		}
-
-		return await http.get(generateRoute("ALL_USERS") + query)
+		return http.get(generateRoute("ALL_USERS"))
 	}
 
 	getUser = async (id: string): ApiResponse<User> =>

@@ -8,4 +8,5 @@ export interface IAuthContext {
 	loginUser: (token: string) => void
 	logoutUser: () => void
 	setToken: (token: string) => void
+	refreshUser: () => void
 }

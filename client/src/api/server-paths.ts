@@ -1,8 +1,8 @@
 const SERVER_PATH_ROOTS = {
 	AUTH: "/auth",
 	USERS: "/users",
-	ADMIN: "/admin",
 	UPLOADER: "/uploader",
+	CHAT: "/chat",
 	/* Prepend path root - DO NOT REMOVE */
 }
 
@@ -24,15 +24,18 @@ export const SERVER_PATHS = {
 		EDIT_PASSWORD: (id = ":id") => `/edit-password/${id}`,
 		DELETE_ACCOUNT: (id = ":id") => `/delete-account/${id}`,
 	},
-	ADMIN: {
-		ROOT: SERVER_PATH_ROOTS.ADMIN,
-		EDIT_ROLE: (id = ":id") => `/edit-role/${id}`,
-		RESET_PASSWORD: (id = ":id") => `/reset-password/${id}`,
-		DELETE_USER: (id = ":id") => `/delete-user/${id}`,
-	},
 	UPLOADER: {
 		ROOT: SERVER_PATH_ROOTS.UPLOADER,
 		UPLOAD_PICTURE: "/upload-picture",
+	},
+	CHAT: {
+		ROOT: SERVER_PATH_ROOTS.CHAT,
+		ALL_CHATS: "/all-chats",
+		GET_CHAT: (id = ":id") => `/chat/${id}`,
+		EXISTING_CHAT: "/existing-chat",
+		NEW_CHAT: "/new-chat",
+		NEW_MESSAGE: (id = ":id") => `/new-message/${id}`,
+		MARK_READ: (id = ":id") => `/mark-read/${id}`,
 	},
 	/* Prepend server path - DO NOT REMOVE */
 }

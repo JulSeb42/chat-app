@@ -1,75 +1,76 @@
-# Boilerplate Express React Router
+# Chat App
 
-This project is a full-stack boilerplate using Express.js for the backend and React (with React Router) for the frontend. It is designed to help you quickly start building scalable web applications with modern tooling.
+A full-stack real-time chat application with user authentication, encrypted messages, and modern UI.
 
 ## Features
 
-- **Express.js** backend with TypeScript
-- **React** frontend with TypeScript
-- **React Router** for client-side routing
-- **TanStack Query** for data fetching and caching
-- **Tailwind CSS** for styling
-- **Plop.js** for code generation
-- **Vite** for fast frontend development
-- **PNPM** for package management
-- **Shared types and constants** between client and server
+- Real-time messaging with [Socket.io](https://socket.io/)
+- Encrypted messages stored in MongoDB
+- User authentication (signup, login, JWT)
+- User avatars and profile management
+- Chat creation (1:1 and group)
+- Responsive, modern UI (React + Tailwind CSS)
+- RESTful API (Express.js)
+- File/image uploads (Cloudinary)
+- Error handling and notifications
 
-## Folder Structure
+## Tech Stack
 
-```
-boilerplate-express-react-router/
-├── client/         # React frontend
-├── server/         # Express backend
-├── shared/         # Shared code (types, constants)
-├── plop/           # Plop generators and templates
-```
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS, TanStack Router, Axios, Socket.io-client
+- **Backend:** Express.js, TypeScript, Mongoose, MongoDB, Socket.io, JWT, Cloudinary
+- **Dev Tools:** pnpm, Plop, ESLint, Prettier, concurrently
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v18+ recommended)
-- PNPM (recommended)
 
-### Install Dependencies
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [pnpm](https://pnpm.io/)
+- [MongoDB](https://www.mongodb.com/)
+
+### Installation
+
+1. Clone the repository:
+	```sh
+	git clone https://github.com/JulSeb42/chat-app.git
+	cd chat-app
+	```
+2. Install dependencies for both client and server:
+	```sh
+	pnpm install
+	```
+3. Set up environment variables:
+	- Copy `client/template.env` to `client/.env` and fill in values.
+	- Copy `server/template.env` to `server/.env` and fill in values.
+4. (Optional) Seed the database with test users:
+	```sh
+	pnpm seed-users
+	```
+
+### Running the App
+
+To start both the client and server in development mode:
 
 ```sh
-pnpm install
-```
-
-### Environment Variables
-- Copy `template.env` to `.env` in both `client/` and `server/` folders and fill in the required values.
-
-### Start Development Servers
-
-#### Client (React)
-```sh
-cd client
 pnpm dev
 ```
 
-#### Server (Express)
-```sh
-cd server
-pnpm dev
-```
+- Client: http://localhost:3000
+- Server: http://localhost:5000 (default)
 
-### Code Generation
-Use Plop to generate components, pages, contexts, etc.
-```sh
-pnpm plop
-```
+## Project Structure
+
+- `client/` – React frontend
+- `server/` – Express backend
+- `plop/` – Code generators
 
 ## Scripts
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm lint` - Run linter
-- `pnpm test` - Run tests
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+- `pnpm dev` – Start client and server concurrently
+- `pnpm client` – Start client only
+- `pnpm serve` – Start server only
+- `pnpm seed-users` – Seed database with test users
 
 ## License
-[MIT](LICENSE)
 
-## Author
-[Julien Sebag](https://julien-sebag.com)
+MIT

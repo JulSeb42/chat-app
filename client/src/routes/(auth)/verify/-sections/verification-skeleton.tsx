@@ -3,7 +3,7 @@ import { Page } from "components"
 
 export const VerificationSkeleton: FC = () => {
 	return (
-		<Page title="Loading..." type="none">
+		<Page title="Loading..." type="all">
 			<Text tag="h1">Verify your account</Text>
 
 			<Flexbox flexDirection="col" gap="sm">

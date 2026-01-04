@@ -1,1 +1,1 @@
-export type LinkType = "none" | "anon" | "protected" | "admin"
+export type LinkType = "all" | "anon" | "protected"

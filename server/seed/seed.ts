@@ -28,7 +28,6 @@ const realUsers: Partial<User>[] = [
 		password: hash,
 		verified: true,
 		verifyToken: getRandomString(20),
-		role: "admin",
 	},
 	{
 		fullName: "Julien User",
@@ -36,7 +35,6 @@ const realUsers: Partial<User>[] = [
 		password: hash,
 		verified: true,
 		verifyToken: getRandomString(20),
-		role: "user",
 	},
 ]
 
@@ -61,7 +59,6 @@ const fakeUsers: Array<Partial<User>> = generateNumbers(0, 97).map(() => {
 		verified: true,
 		verifyToken: getRandomString(20),
 		avatar: getRandomAvatar(genders as any),
-		role: "user",
 	}
 })
 
